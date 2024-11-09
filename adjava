@@ -1,0 +1,317 @@
+1)  
+Exception class:
+class AgeNotWithinRangeException extends Exception {
+    public AgeNotWithinRangeException(String message) {
+        super(message);
+    }
+}
+
+
+class NameNotValidException extends Exception {
+    public NameNotValidException(String message) {
+        super(message);
+    }
+}
+
+student class:
+
+public class Student {
+    private int rollNo;
+    private String name;
+    private int age;
+    private String course;
+
+    
+    public Student(int rollNo, String name, int age, String course) throws AgeNotWithinRangeException, NameNotValidException {
+        this.rollNo = rollNo;
+        this.name = name;
+        this.age = age;
+        this.course = course;
+        
+        
+        if (age < 15 || age > 21) {
+            throw new AgeNotWithinRangeException("Age must be between 15 and 21. Provided age: " + age);
+        }
+
+       
+        if (!name.matches("[a-zA-Z ]+")) {
+            throw new NameNotValidException("Name contains invalid characters. Name: " + name);
+        }
+    }
+
+    
+    public int getRollNo() {
+        return rollNo;
+    }
+
+    public void setRollNo(int rollNo) {
+        this.rollNo = rollNo;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getCourse() {
+        return course;
+    }
+
+    public void setCourse(String course) {
+        this.course = course;
+    }
+
+    
+    public void displayStudentDetails() {
+        System.out.println("Roll No: " + rollNo);
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age);
+        System.out.println("Course: " + course);
+    }
+}
+
+Main class:
+import java.util.Scanner;
+
+public class StudentManagementSystem {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+           
+            System.out.print("Enter Roll Number: ");
+            int rollNo = scanner.nextInt();
+            scanner.nextLine(); 
+
+            System.out.print("Enter Name: ");
+            String name = scanner.nextLine();
+
+            System.out.print("Enter Age: ");
+            int age = scanner.nextInt();
+            scanner.nextLine(); 
+
+            System.out.print("Enter Course: ");
+            String course = scanner.nextLine();
+
+            
+            Student student = new Student(rollNo, name, age, course);
+
+           
+            student.displayStudentDetails();
+        } catch (AgeNotWithinRangeException | NameNotValidException e) {
+            System.out.println("Error: " + e.getMessage());
+        } finally {
+            scanner.close();
+        }
+    }
+}
+
+2) 
+ exception  class for voter 
+class InvalidAgeForVoterException extends Exception {
+    
+    public InvalidAgeForVoterException(String message) {
+        super(message);
+    }
+}
+
+voter class:
+
+public class Voter {
+    private int voterId;
+    private String name;
+    private int age;
+
+    
+    public Voter(int voterId, String name, int age) throws InvalidAgeForVoterException {
+        this.voterId = voterId;
+        this.name = name;
+        this.age = age;
+
+        
+        if (age < 18) {
+            throw new InvalidAgeForVoterException("Invalid age for voter: " + age);
+        }
+    }
+
+    
+    public int getVoterId() {
+        return voterId;
+    }
+
+    public void setVoterId(int voterId) {
+        this.voterId = voterId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    
+    public void displayVoterDetails() {
+        System.out.println("Voter ID: " + voterId);
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age);
+    }
+}
+
+main class:
+
+import java.util.Scanner;
+
+public class VoterSystem {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            
+            System.out.print("Enter Voter ID: ");
+            int voterId = scanner.nextInt();
+            scanner.nextLine(); 
+
+            System.out.print("Enter Name: ");
+            String name = scanner.nextLine();
+
+            System.out.print("Enter Age: ");
+            int age = scanner.nextInt();
+
+            
+            Voter voter = new Voter(voterId, name, age);
+
+            
+            voter.displayVoterDetails();
+        } catch (InvalidAgeForVoterException e) {
+            
+            System.out.println("Error: " + e.getMessage());
+        } finally {
+            scanner.close();
+        }
+    }
+}
+
+3)
+import java.util.Scanner;
+
+public class WeekdayFinder {
+
+    public static void main(String[] args) {
+        
+        String[] weekday= {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+        
+       
+        Scanner scanner = new Scanner(System.in);
+        
+        try {
+           
+            System.out.print("Enter the day position (0-6): ");
+            int dayIndex = scanner.nextInt();
+            
+            
+            System.out.println("The day is: " + weekday[dayIndex]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            
+            System.out.println("Error: Invalid day index! Please enter a value between 0 and 6.");
+        } finally {
+            
+            scanner.close();
+        }
+    }
+}
+
+5)
+import java.util.Stack;
+
+public class IntegerStack {
+   
+    private Stack<Integer> stack;
+
+    
+    public IntegerStack() {
+        stack = new Stack<>();
+    }
+
+    
+    public void pushElement(int element) {
+        stack.push(element);
+        System.out.println("Pushed " + element + " onto the stack.");
+    }
+
+    
+    public void popElement() {
+        if (!stack.isEmpty()) {
+            int poppedElement = stack.pop();
+            System.out.println("Popped " + poppedElement + " from the stack.");
+        } else {
+            System.out.println("The stack is empty, no element to pop.");
+        }
+    }
+
+    
+    public boolean isStackEmpty() {
+        return stack.isEmpty();
+    }
+
+    
+    public void displayStack() {
+        if (stack.isEmpty()) {
+            System.out.println("The stack is empty.");
+        } else {
+            System.out.println("Current stack: " + stack);
+        }
+    }
+
+    
+    public static void main(String[] args) {
+        IntegerStack integerStack = new IntegerStack();
+
+        
+        integerStack.pushElement(10);
+        integerStack.pushElement(20);
+        integerStack.pushElement(30);
+
+        
+        integerStack.displayStack();
+
+        
+        integerStack.popElement();
+        integerStack.popElement();
+
+        
+        integerStack.displayStack();
+
+       
+        System.out.println("Is the stack empty? " + integerStack.isStackEmpty());
+
+       
+        integerStack.popElement();
+
+        
+        System.out.println("Is the stack empty? " + integerStack.isStackEmpty());
+    }
+}
+
